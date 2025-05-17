@@ -73,14 +73,77 @@ let challangeTitle = document.querySelector('.challange-title');
 challangeTitle.classList.toggle('test');//toggle the class. If 'test' class does not exist then it will add the class then toggle it
 challangeTitle.classList.toggle('test');//remove the 'test' class.
 
-//to select all the tag inside 'article' follow these steps
-const article = document.querySelector('article');//return elements of article as HTMLCollection
+//......................................................................................................................................
+
+//to s elect all the tag inside 'article' follow these steps
+const article = document.querySelector('article');//return elements of article as HTMLCollection 
 console.log(article.children);//print all the children of article
 console.log(Array.from(article.children));//convert HTMLCollection to array and print
 
 Array.from(article.children).forEach(child => {
     child.classList.add('article-element');
 });
+
+//understanding parent child relation
+let headline = document.querySelector('article>h3'); //u must select tag. Selecting class or id will result in error
+
+console.log(headline.parentElement);
+console.log(headline.parentElement.parentElement);  
+console.log(headline.nextElementSibling);
+console.log(headline.previousSibling);
+
+//chaining
+console.log(headline.nextElementSibling.parentElement.children);
+
+//event basics(event bubbling and delegation)
+let button = document.querySelector('button');
+let ul1 = document.querySelector('body > main > section.todos > ul')
+
+button.addEventListener('click', () =>{
+    // console.log('I am clicked');
+    // ul1.innerHTML += '<li>Something new</li>';
+    const li = document.createElement('li');
+    li.textContent = 'something new to do';
+    ul1.append(li); //you can also use .prepend method to add new todos at the begining of the list
+});
+
+
+
+let items = document.querySelectorAll('.todos-list');
+
+items.forEach(item =>{
+    item.addEventListener('click',(e) =>{ //e stands for event
+        // console.log('item clicked');
+        // console.log(e);
+        // console.log(e.target);
+        // console.log(item);
+        // e.target.style.textDecoration = 'line-through'
+        //use camels case if you want to apply css style in js. text-decoration = textDecoration
+        console.log('event in LI');
+        e.stopPropagation();
+        e.target.remove();
+    });
+});   
+
+ul1.addEventListener('click', e=>{
+    console.log('event in UL');
+})
+
+
+
+
+
+
+
+
+//creating and removing elements from js
+let ul2 = document.querySelector('.todos-lists-2');
+ul2.remove();
+
+
+
+
+
 
 
 
